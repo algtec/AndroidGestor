@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:projetos="services.projetos.*" title="Projetos">
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.events.CollectionEvent;
+			import mx.events.FlexEvent;
+			import mx.rpc.http.HTTPService;
+			[Bindable] public var dados:CallResponder;
+			
+			protected function dataGrid_creationCompleteHandler(event:FlexEvent):void
+			{
+				getDataResult.token = projetos.getData();
+				dados = getDataResult.lastResult;
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:CallResponder id="getDataResult"/>
+		<projetos:Projetos id="projetos"/>
+	</fx:Declarations>
+	
+	
+	<s:DataGrid id="dataGrid" left="0" right="0" top="0" bottom="0"
+				creationComplete="dataGrid_creationCompleteHandler(event)" requestedColumnCount="-1"
+				requestedRowCount="-1" styleName="dataGrid" variableRowHeight="true">
+		<s:columns>
+			<s:ArrayList>
+				<s:GridColumn dataField="status" headerText="Status"/>
+				<s:GridColumn dataField="name" headerText="Projeto"/>
+				<s:GridColumn dataField="porcentagem" headerText="Porcentagem"/>
+			</s:ArrayList>
+		</s:columns>
+		<s:AsyncListView list="{getDataResult.lastResult}"/>
+	</s:DataGrid>
+</s:View>

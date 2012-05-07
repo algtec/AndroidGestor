@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		xmlns:projetos="services.projetos.*"
+		
+		title="Margem">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			protected function columnchart1_creationCompleteHandler(event:FlexEvent):void
+			{
+				getDataResult.token = projetos.getData();
+				Multitouch.inputMode = MultitouchInputMode.GESTURE;
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:CallResponder id="getDataResult"/>
+		<projetos:Projetos id="projetos"/>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<mx:ColumnChart id="columnchart1" left="10" right="10" top="9"
+					creationComplete="columnchart1_creationCompleteHandler(event)"
+					dataProvider="{getDataResult.lastResult}" showDataTips="true" type="clustered">
+		<mx:horizontalAxis>
+			<mx:CategoryAxis id="categoryAxis" categoryField="name"/>
+		</mx:horizontalAxis>
+		<mx:series>
+			<mx:ColumnSeries id="columnSeries" displayName="Projeto" yField="margem" itemRenderer="utils.ColorColumnChartRenderer" />
+		</mx:series>
+	</mx:ColumnChart>
+	<mx:Legend left="10" bottom="10" dataProvider="{columnchart1}"/>
+</s:View>

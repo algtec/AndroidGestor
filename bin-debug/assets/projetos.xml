@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<list>
+    <projeto>
+    	<id>1</id>
+    	<name>Solvay - Integração</name>
+    	<porcentagem>0.6</porcentagem>
+    	<status>A</status>
+    	<margem>0.25</margem>
+    	<gp>Edson Etiki</gp>
+		<lastUpdate>12/Jan</lastUpdate>
+    </projeto>
+    <projeto>
+    	<id>2</id>
+    	<name>Whirpool - CRM</name>
+    	<porcentagem>0.75</porcentagem>
+    	<status>B</status>
+    	<margem>0.3</margem>
+    	<gp>Edson Spirandelli</gp>
+		<lastUpdate>15/Jan</lastUpdate>
+    </projeto>
+    <projeto>
+    	<id>3</id>
+    	<name>Caramuru - MM</name>
+    	<porcentagem>0.4</porcentagem>
+    	<status>C</status>
+    	<margem>-0.15</margem>
+    	<gp>Fátima Hulk</gp>
+		<lastUpdate>14/Dez</lastUpdate>
+    </projeto>
+    <projeto>
+    	<id>4</id>
+    	<name>Videolar - RollOut</name>
+    	<porcentagem>0.6</porcentagem>
+    	<status>B</status>
+    	<margem>0.12</margem>
+    	<gp>Felipe Dias</gp>
+		<lastUpdate>14/Jan</lastUpdate>
+    </projeto>
+    <projeto>
+    	<id>5</id>
+    	<name>CSN - CRM</name>
+    	<porcentagem>0.09</porcentagem>
+    	<status>B</status>
+    	<margem>0.28</margem>
+    	<gp>Nestor Cerqueira</gp>
+		<lastUpdate>4/Fev</lastUpdate>
+    </projeto>
+    <projeto>
+    	<id>6</id>
+    	<name>KSB - RollOut</name>
+    	<porcentagem>0</porcentagem>
+    	<status>A</status>
+    	<margem>-0.15</margem>
+    	<gp>Milochi</gp>
+		<lastUpdate>5/Fev</lastUpdate>
+    </projeto>
+    <projeto>
+    	<id>7</id>
+    	<name>FMC - Integração</name>
+    	<porcentagem>0.55</porcentagem>
+    	<status>A</status>
+    	<margem>0.03</margem>
+    	<gp>Roberto Gritenas</gp>
+		<lastUpdate>6/Fev</lastUpdate>
+    </projeto>
+    <projeto>
+    	<id>8</id>
+    	<name>Nidera - SAP ECC</name>
+    	<porcentagem>0.78</porcentagem>
+    	<status>C</status>
+    	<margem>0.13</margem>
+    	<gp>Edson Spirandelli</gp>
+		<lastUpdate>15/jan</lastUpdate>
+    </projeto>
+
+</list>
