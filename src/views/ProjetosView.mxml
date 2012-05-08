@@ -4,22 +4,59 @@
 		xmlns:projetos="services.projetos.*" title="Projetos">
 	<fx:Script>
 		<![CDATA[
-			import mx.collections.ArrayCollection;
-			import mx.events.CollectionEvent;
 			import mx.events.FlexEvent;
-			import mx.rpc.http.HTTPService;
-			[Bindable] public var dados:CallResponder;
+			import mx.rpc.events.ResultEvent;
+			
+			import valueObjects.Node;
+			
 			
 			protected function dataGrid_creationCompleteHandler(event:FlexEvent):void
 			{
 				getDataResult.token = projetos.getData();
-				dados = getDataResult.lastResult;
+				
 			}
+			
+			protected function toPorcentagem(e:Number):String
+			{
+				var decimalValue:Number;
+				var percentage:Number;
+				var roundedPercentage:Number;
+				var percentAsString:String;
+				
+				decimalValue = e;
+				percentage = decimalValue * 100;
+				roundedPercentage = Math.round(percentage);
+				percentAsString = roundedPercentage + "%";
+				return percentAsString;
+			}
+			
+			protected function getDataResult_resultHandler(event:ResultEvent):void
+			{
+				// TODO Auto-generated method stub
+				for each(var objeto:valueObjects.Node in event.result){
+					objeto["porcentagem"] = toPorcentagem(objeto["porcentagem"]);
+					switch(objeto["status"]){
+						case "A":
+							objeto["status"] = "../assets/nav_plain_green.png";
+							break;
+						case "B":
+							objeto["status"] = "../assets/nav_plain_yellow.png";
+							break;
+						case "C":
+							objeto["status"] = "../assets/nav_plain_red.png";
+							break;
+						default:
+							objeto["status"] = "../assets/nav_plain_blue.png";
+							break;
+					}
+				}
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
-		<s:CallResponder id="getDataResult"/>
+		<s:CallResponder id="getDataResult" result="getDataResult_resultHandler(event)"/>
 		<projetos:Projetos id="projetos"/>
 	</fx:Declarations>
 	
@@ -29,11 +66,11 @@
 				requestedRowCount="-1" styleName="dataGrid" variableRowHeight="true">
 		<s:columns>
 			<s:ArrayList>
-				<s:GridColumn dataField="status" headerText="Status"/>
+				<s:GridColumn dataField="status" headerText="Status" itemRenderer="renders.StatusProjeto"/>
 				<s:GridColumn dataField="name" headerText="Projeto"/>
 				<s:GridColumn dataField="porcentagem" headerText="Porcentagem"/>
 			</s:ArrayList>
 		</s:columns>
-		<s:AsyncListView list="{getDataResult.lastResult}"/>
+		<s:ArrayCollection id="listaResultados" list="{getDataResult.lastResult}"/>
 	</s:DataGrid>
 </s:View>

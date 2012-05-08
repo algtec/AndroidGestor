@@ -3,17 +3,73 @@
 		xmlns:s="library://ns.adobe.com/flex/spark"
 		xmlns:mx="library://ns.adobe.com/flex/mx"
 		xmlns:projetos="services.projetos.*"
-		
 		title="Margem">
 	<fx:Script>
 		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.collections.ArrayList;
 			import mx.events.FlexEvent;
 			
+			import spark.events.ViewNavigatorEvent;
+			protected var lastX:Number = 0;
+			
+			/*protected function view1_initializeHandler(event:FlexEvent):void
+			{
+				// TODO Auto-generated method stub
+				addEventListener(TransformGestureEvent.GESTURE_ZOOM, view1_gestureZoomHandler);
+			}
+			
+			protected function view1_viewActivateHandler(event:ViewNavigatorEvent):void
+			{
+				// TODO Auto-generated method stub
+				this.addEventListener(TransformGestureEvent.GESTURE_SWIPE,swipeHandler);
+			}
+			
+			protected function swipeHandler(event:TransformGestureEvent):void {
+				// if I specifically swiped the TextArea
+				if (event.currentTarget.id ==  "swipeText") {
+					
+				}
+				var myGrafh:ColumnChart = columnchart1 as ColumnChart;
+				if (event.offsetX == 1) {
+					swipeDirection.text =  "swiped right";
+					
+				}
+				else if (event.offsetX == -1) {
+					swipeDirection.text =  "swiped left";
+				}
+				else if (event.offsetY == 1) {
+					swipeDirection.text =  "swiped down";
+				}
+				else if (event.offsetY == -1) {
+					swipeDirection.text =  "swiped up";
+				}
+			}*/
 			protected function columnchart1_creationCompleteHandler(event:FlexEvent):void
 			{
 				getDataResult.token = projetos.getData();
-				Multitouch.inputMode = MultitouchInputMode.GESTURE;
 			}
+			
+			
+			
+			/*scale test*/
+			/*protected function view1_gestureZoomHandler(event:TransformGestureEvent):void
+			{
+				// TODO Auto-generated method stub
+				var myGrafh:ColumnChart = columnchart1 as ColumnChart;
+				if(myGrafh.scaleY.valueOf() >= 1){
+					myGrafh.scaleX *= event.scaleX;
+				}
+				else{
+					myGrafh.scaleX = 1;
+					myGrafh.scaleY = 1;
+				}
+			}*/
+			
+						
+			
+			
+			
 			
 		]]>
 	</fx:Script>
@@ -22,7 +78,7 @@
 		<projetos:Projetos id="projetos"/>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<mx:ColumnChart id="columnchart1" left="10" right="10" top="9"
+	<mx:ColumnChart id="columnchart1" left="10" right="10" top="10" bottom="30"
 					creationComplete="columnchart1_creationCompleteHandler(event)"
 					dataProvider="{getDataResult.lastResult}" showDataTips="true" type="clustered">
 		<mx:horizontalAxis>

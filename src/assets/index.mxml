@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"
+	width="100%" height="200" backgroundColor="#333333">
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			/*
+			 * A = bolinha verde
+			 * B = bolinha vermelha
+			 * c - bolinha azul
+			 * G = default
+			 */
+            [Bindable]                
+            private var initDG:ArrayCollection = new ArrayCollection([
+                {nome:'Felipe', sobrenome:'Borella', status: 'A'},
+                {nome:'Lucas', sobrenome:'Catani', status: 'B'},
+                {nome:'Joao', sobrenome:'Silva', status: 'C'},
+                {nome:'Julio', sobrenome:'Borella', status: 'G'},
+                {nome:'Diego', sobrenome:'Mangoni', status: 'A'}
+            ]);
+
+		]]>
+	</mx:Script>
+	<mx:DataGrid id="dgDados" dataProvider="{initDG}" width="100%">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Nome" dataField="nome" width="100"/>
+			<mx:DataGridColumn headerText="Sobrenome" dataField="sobrenome" width="100"/>
+			<mx:DataGridColumn headerText="Status" dataField="status" width="50"/>
+			<mx:DataGridColumn headerText="Permissao" width="50">
+				<mx:itemRenderer>
+					<mx:Component>
+			            <mx:Image horizontalAlign="center" width="24" height="24"			            		
+			            		source="{imagem.source}" creationComplete="alteraImagem();">
+						<mx:Script>
+							<![CDATA[
+								import mx.controls.Image;								
+								[Bindable]
+								public var imagem:Image = new Image();
+	
+								public function alteraImagem():void
+								{
+									switch (data.status)
+									{
+										case 'A':
+											imagem.source='nav_plain_green.png';
+											break;
+										
+										case 'B':
+											imagem.source='nav_plain_red.png';
+											break;
+										
+										case 'C':
+											imagem.source='nav_plain_blue.png';
+											break;
+										default:
+											imagem.source='nav_plain_blue.png';													
+									}												
+								}
+							]]>
+						</mx:Script>
+			            </mx:Image>
+			        </mx:Component>                            
+			    </mx:itemRenderer> 				
+			</mx:DataGridColumn>
+		</mx:columns>
+	</mx:DataGrid>
+</mx:Application>
