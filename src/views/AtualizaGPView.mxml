@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		xmlns:s="library://ns.adobe.com/flex/spark" 
-		xmlns:projetos="services.projetos.*" title="Atualiza GP">
+		xmlns:projetos="services.projetos.*" title="Atualiza GP" xmlns:mx="library://ns.adobe.com/flex/mx">
 	<fx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
 			import mx.events.CollectionEvent;
 			import mx.events.FlexEvent;
+			import mx.formatters.DateFormatter;
+			import mx.rpc.events.ResultEvent;
 			import mx.rpc.http.HTTPService;
+			
+			import valueObjects.Node;
 			
 			protected function dataGrid_creationCompleteHandler(event:FlexEvent):void
 			{
@@ -15,12 +19,21 @@
 				getDataResult.token = projetos.getData();
 			}
 			
+			protected function getDataResult_resultHandler(event:ResultEvent):void
+			{
+				// TODO Auto-generated method stub
+				for each(var objeto:valueObjects.Node in event.result){
+					objeto["lastUpdate"] = diaformato.format(objeto["lastUpdate"]);
+				}
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
-		<s:CallResponder id="getDataResult"/>
+		<s:CallResponder id="getDataResult" result="getDataResult_resultHandler(event)"/>
 		<projetos:Projetos id="projetos"/>
+		<mx:DateFormatter id="diaformato" formatString="DD/MM/YYYY"/>
 	</fx:Declarations>
 	
 	
