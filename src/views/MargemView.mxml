@@ -3,15 +3,22 @@
 		xmlns:s="library://ns.adobe.com/flex/spark"
 		xmlns:mx="library://ns.adobe.com/flex/mx"
 		xmlns:projetos="services.projetos.*"
+		gestureZoom="view1_gestureZoomHandler(event)"
+		gestureSwipe="view1_gestureSwipeHandler(event)"
 		title="Margem">
 	<fx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
 			import mx.collections.ArrayList;
+			import mx.core.FlexGlobals;
 			import mx.events.FlexEvent;
 			
 			import spark.events.ViewNavigatorEvent;
 			protected var lastX:Number = 0;
+			[Bindable] public var tamanho:Number;
+			[Bindable] public var tela:Number;
+			
+			
 			
 			/*protected function view1_initializeHandler(event:FlexEvent):void
 			{
@@ -48,28 +55,42 @@
 			protected function columnchart1_creationCompleteHandler(event:FlexEvent):void
 			{
 				getDataResult.token = projetos.getData();
+				tamanho = ProjetosView.dados.length;
+				tela = FlexGlobals.topLevelApplication.applicationDPI;
+				columnchart1.width = tela * tamanho;
+				
 			}
 			
 			
 			
 			/*scale test*/
-			/*protected function view1_gestureZoomHandler(event:TransformGestureEvent):void
+			protected function view1_gestureZoomHandler(event:TransformGestureEvent):void
 			{
+				var tamanhoAntigo:Number = columnchart1.width;
 				// TODO Auto-generated method stub
 				var myGrafh:ColumnChart = columnchart1 as ColumnChart;
-				if(myGrafh.scaleY.valueOf() >= 1){
-					myGrafh.scaleX *= event.scaleX;
+				if(columnchart1.width <= tamanhoAntigo){
+					//myGrafh.scaleX *= event.scaleX;
+					columnchart1.width = columnchart1.width * event.scaleX;
 				}
 				else{
-					myGrafh.scaleX = 1;
-					myGrafh.scaleY = 1;
+					columnchart1.width = tamanhoAntigo;
 				}
-			}*/
+			}
 			
 						
 			
 			
 			
+			
+			protected function view1_gestureSwipeHandler(event:TransformGestureEvent):void
+			{
+				// TODO Auto-generated method stub
+				//posicao.text = event.offsetX.toString();
+				if(event.offsetX == -1){
+					columnchart1.dataProvider.addItem(columnchart1.dataProvider.removeItemAt(0));
+				}
+			}
 			
 		]]>
 	</fx:Script>
@@ -78,13 +99,13 @@
 		<projetos:Projetos id="projetos"/>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<mx:ColumnChart id="columnchart1" left="10" right="10" top="10" bottom="30"
+	<mx:ColumnChart id="columnchart1" left="10" top="10" bottom="30"
 					creationComplete="columnchart1_creationCompleteHandler(event)"
 					dataProvider="{ProjetosView.dados}" showDataTips="true" type="clustered">
 		<mx:horizontalAxis>
 			<mx:CategoryAxis id="categoryAxis" categoryField="name"/>
 		</mx:horizontalAxis>
-		<mx:series>
+		<mx:series >
 			<mx:ColumnSeries id="columnSeries" displayName="Projeto" yField="margem" itemRenderer="utils.ColorColumnChartRenderer" />
 		</mx:series>
 	</mx:ColumnChart>
