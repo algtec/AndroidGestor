@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
 		xmlns:s="library://ns.adobe.com/flex/spark"
-		xmlns:projetos="services.projetos.*" title="Projetos">
+		xmlns:projetos="services.projetos.*" title="Projetos" xmlns:mx="library://ns.adobe.com/flex/mx">
 	<fx:Script>
 		<![CDATA[
 			import mx.events.FlexEvent;
 			import mx.rpc.events.ResultEvent;
 			
+			
 			import valueObjects.Node;
+			[Bindable] public static var dados:ArrayCollection;
 			
 			
 			protected function dataGrid_creationCompleteHandler(event:FlexEvent):void
 			{
 				getDataResult.token = projetos.getData();
+				if(!dados){
+					getDataResult.lastResult;
+				}
 				
 			}
 			
@@ -34,6 +39,7 @@
 			{
 				// TODO Auto-generated method stub
 				for each(var objeto:valueObjects.Node in event.result){
+					objeto["lastUpdate"] = diaformato.format(objeto["lastUpdate"]);
 					objeto["porcentagem"] = toPorcentagem(objeto["porcentagem"]);
 					switch(objeto["status"]){
 						case "A":
@@ -50,6 +56,7 @@
 							break;
 					}
 				}
+				dados = new ArrayCollection(event.result.toArray());
 			}
 			
 		]]>
@@ -58,6 +65,7 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 		<s:CallResponder id="getDataResult" result="getDataResult_resultHandler(event)"/>
 		<projetos:Projetos id="projetos"/>
+		<mx:DateFormatter id="diaformato" formatString="DD/MM/YYYY"/>
 	</fx:Declarations>
 	
 	
@@ -71,6 +79,6 @@
 				<s:GridColumn dataField="porcentagem" headerText="Porcentagem"/>
 			</s:ArrayList>
 		</s:columns>
-		<s:ArrayCollection id="listaResultados" list="{getDataResult.lastResult}"/>
+		<s:ArrayCollection id="listaResultados" list="{dados}"/>
 	</s:DataGrid>
 </s:View>

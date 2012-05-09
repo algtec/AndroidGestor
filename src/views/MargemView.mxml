@@ -80,7 +80,7 @@
 	</fx:Declarations>
 	<mx:ColumnChart id="columnchart1" left="10" right="10" top="10" bottom="30"
 					creationComplete="columnchart1_creationCompleteHandler(event)"
-					dataProvider="{getDataResult.lastResult}" showDataTips="true" type="clustered">
+					dataProvider="{ProjetosView.dados}" showDataTips="true" type="clustered">
 		<mx:horizontalAxis>
 			<mx:CategoryAxis id="categoryAxis" categoryField="name"/>
 		</mx:horizontalAxis>

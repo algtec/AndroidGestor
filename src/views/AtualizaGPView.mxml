@@ -22,9 +22,7 @@
 			protected function getDataResult_resultHandler(event:ResultEvent):void
 			{
 				// TODO Auto-generated method stub
-				for each(var objeto:valueObjects.Node in event.result){
-					objeto["lastUpdate"] = diaformato.format(objeto["lastUpdate"]);
-				}
+				
 			}
 			
 		]]>
@@ -33,7 +31,6 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 		<s:CallResponder id="getDataResult" result="getDataResult_resultHandler(event)"/>
 		<projetos:Projetos id="projetos"/>
-		<mx:DateFormatter id="diaformato" formatString="DD/MM/YYYY"/>
 	</fx:Declarations>
 	
 	
@@ -46,6 +43,6 @@
 				<s:GridColumn dataField="lastUpdate" headerText="Atualizado em"/>
 			</s:ArrayList>
 		</s:columns>
-		<s:AsyncListView list="{getDataResult.lastResult}"/>
+		<s:AsyncListView list="{ProjetosView.dados}"/>
 	</s:DataGrid>
 </s:View>
